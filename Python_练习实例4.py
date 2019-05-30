@@ -1,3 +1,6 @@
+题目：输入某年某月某日，判断这一天是这一年的第几天？
+
+
 year = int(input("年份： "))
 month = int(input("月份： "))
 day = int(input("日期： "))
