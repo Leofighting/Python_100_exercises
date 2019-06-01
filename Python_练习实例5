@@ -1,0 +1,11 @@
+# 题目：输入三个整数，请把这三个数由小到大输出。
+
+# 方法一：用数列的 sort 方法
+number_group = []
+for i in range(3):
+    number = int(input("请输入3个整数： "))
+    number_group.append(number)
+
+
+number_group.sort()
+print(f"这三个数，从小到大排序：{number_group}")
