@@ -1,6 +1,4 @@
-题目：有四个数字：1、2、3、4，能组成多少个互不相同且无重复数字的三位数？各是多少？
-
-
+# 题目：有四个数字：1、2、3、4，能组成多少个互不相同且无重复数字的三位数？各是多少？
 # 方法1
 num_list = []
 
@@ -25,7 +23,6 @@ print(list)
 # 方法3
 from itertools import permutations
 
-
 list_num = []
 
 for i in permutations([1, 2, 3, 4], 3):
@@ -33,3 +30,18 @@ for i in permutations([1, 2, 3, 4], 3):
 
 print(len(list_num))
 print(list_num)
+
+
+# 方法4
+number_group = [1, 2, 3, 4]
+
+for i in number_group:
+    i1 = i * 100
+    for j in number_group:
+        if j == i:
+            continue
+        j1 = j * 10
+        for k in number_group:
+            if k == j or k == i:
+                continue
+            print(i1 + j1 + k, end=",")
