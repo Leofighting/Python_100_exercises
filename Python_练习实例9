@@ -1,0 +1,23 @@
+# 编写函数，接收字符串参数，返回一个元组
+# 其中第一个元素为大写字母的个数
+# 第二个元素为小写字母的个数
+
+
+def demo(string):
+
+    result = [0, 0]
+    for letter in string:
+        if "a" <= letter <= "z":
+            result[0] += 1
+
+        elif "A" <= letter <= "Z":
+            result[1] += 1
+
+    return tuple(result)
+
+
+print(demo("sdfasSDGRDhgrhgdSFAFsdfGASDFG"))
+
+# 个人笔记
+# 忘记了for循环
+# 可以用tuple()函数 返回一个元组
