@@ -1,0 +1,33 @@
+# 编写函数，接收一个整数t为参数，打印杨辉三角前t行
+
+
+def demo(t):
+    result = [[1], [1,1]]
+    line = [1, 1]
+    for i in range(2, t):
+        r = []
+        for j in range(0,len(line)-1):
+            r.append(line[j]+line[j+1])
+        line = [1] + r + [1]
+        result.append(line)
+    return result
+
+
+def output(result):
+    for item in result:
+        print(item)
+
+
+output(demo(10))
+
+# 输出结果
+# [1]
+# [1, 1]
+# [1, 2, 1]
+# [1, 3, 3, 1]
+# [1, 4, 6, 4, 1]
+# [1, 5, 10, 10, 5, 1]
+# [1, 6, 15, 20, 15, 6, 1]
+# [1, 7, 21, 35, 35, 21, 7, 1]
+# [1, 8, 28, 56, 70, 56, 28, 8, 1]
+# [1, 9, 36, 84, 126, 126, 84, 36, 9, 1]
