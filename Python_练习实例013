@@ -1,0 +1,43 @@
+# 编写函数，接收一个所有元素值都不相等的整数列表x和一个整数n
+# 要求将值为你的元素作为支点
+# 将列表中所有值小于n的元素全部放到n的前面
+# 所有值大于n的元素放到n的后面
+
+import random
+
+
+def demo(x, n):
+    if n not in x:
+        print(n, "is not an element of ", x)
+        return
+
+    i = x.index(n)
+    x[0], x[i] = x[i], x[0]
+    key = x[0]
+
+    i = 0
+    j = len(x) - 1
+
+    while i < j:
+        while i < j and x[j] >= key:
+            j -= 1
+        x[i] = x[j]
+        while i < j and x[i] <= key:
+            i += 1
+        x[j] = x[i]
+
+    x[i] = key
+
+
+int_list = []
+while True:
+    number = input("请输入数列中的整数（退出请输入out）： ")
+    if number == "out":
+        break
+    int_list.append(int(number))
+
+target_number = int(input("请输入一个目标整数n（必须在整数数列中）： "))
+random.shuffle(int_list)
+print(int_list)
+demo(int_list, target_number)
+print(int_list)
