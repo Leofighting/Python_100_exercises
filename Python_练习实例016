@@ -1,0 +1,81 @@
+# 韩信点兵
+# 韩信为了不让敌人知道自己的兵力有多少
+# 让士兵报数时，先是从1至3报数
+# 再从1至5重新报数
+# 然后再从1至7重新报数
+# 只需要记下最后一名士兵每次报数时几
+# 即可快速计算出自己有多少士兵
+
+from functools import reduce
+from math import gcd
+
+
+def is_coprime(p):
+    """判断p中每个元组的第一个数（即mi）之间是否互素"""
+    for index,item1 in enumerate(p):
+        for item2 in p[index+1:]:
+            if gcd(item1[0], item2[0]) != 1:
+                return False
+    return True
+
+
+def ex_euclid(Mi, mi):
+    """暴力穷举，求Mi对mi的乘法逆元，也可以使用扩展欧几里得算法快速求解"""
+    for i in range(1, mi):
+        if i * Mi % mi == 1:
+            return i
+
+
+def chinese_remaider(p):
+    """p 为 [(3,2),(7,1),(13,5),(mi,ai)...]形式的参数
+    其中3/7/13为商，2/1/5为余"""
+    # 先判断所给数据中的mi 是否互素，如果不是则提示数据错误并退出
+    if not is_coprime(p):
+        return "Data error."
+    # 切片浅复制，临时变量，防止修改实参中的数据
+    pp = p[:]
+    # 求M=m1*m2*m3*...*mn
+    ppp = [item[0] for item in pp]
+    M = reduce(lambda x, y: x * y, ppp)
+    for index, item in enumerate(pp):
+        Mi = int(M / item[0])
+        bi = ex_euclid(Mi, item[0])
+        pp[index] = item + (Mi, bi)
+    # 求解最终结果，sum（ai*bi*Mi）mod M
+    result = sum([item[1] * item[2] * item[3] for item in pp])
+    result = result % M
+    # 考虑特殊情况，不允许结果为1
+    if result == 1:
+        result = result + M
+    return result
+
+
+data = [[(3, 2), (5, 3), (7, 2)],
+        [(5, 1), (3, 2)],
+        [(5, 1), (3, 1)],
+        [(5, 4), (3, 2)],
+        [(7, 2), (8, 4), (9, 3)],
+        [(5, 2), (6, 4), (7, 4)],
+        [(3, 2), (5, 3), (7, 4)]]
+
+for p in data:
+    print(p)
+    print(chinese_remaider(p))
+
+
+# 个人笔记
+# gcd:返回x和y的最大公约数
+
+# reduce() 函数会对参数序列中元素进行累积。
+# 函数将一个数据集合（链表，元组等）中的所有数据进行下列操作：
+# 用传给 reduce 中的函数 function（有两个参数）先对集合中的第 1、2 个元素进行操作
+# 得到的结果再与第三个数据用 function 函数运算，最后得到一个结果。
+# 语法
+# reduce() 函数语法：
+# reduce(function, iterable[, initializer])
+
+# enumerate()函数用于将一个可遍历的数据对象(如列表、元组或字符串)组合为一个索引序列
+# 同时列出数据和数据下标，一般用在for 循环当中。
+# 语法
+# 以下是 enumerate() 方法的语法:
+# enumerate(sequence, [start = 0])
