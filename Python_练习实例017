@@ -1,0 +1,37 @@
+# 模拟微信发红包算法
+
+import random
+
+
+def hongbao(total, num):
+    # total 表示拟发红包总金额
+    # num 表示拟发红包数量
+    each = []
+    # 已发红包总金额
+    already = 0
+    for i in range(1, num):
+        # 为当前抢红包的人随即分配金额
+        # 至少给剩下的人每人留一分钱
+        t = random.uniform(0, (total-already) - (num - i))
+        t1 = round(t, 2)
+        each.append(t1)
+        already = already + t1
+    # 剩余所有钱发给最后一个人
+    last_one = total - already
+    last_one1 = round(last_one, 2)
+    each.append(last_one1)
+    return each
+
+
+if __name__ == '__main__':
+    total = 5
+    num = 5
+    # 模拟30次
+    for i in range(30):
+        each = hongbao(total, num)
+        print(each)
+
+
+# 个人笔记
+# 关于 if __name__ == '__main__':  的说明详见下面链接
+# https: // blog.csdn.net / zhusongziye / article / details / 79505803
