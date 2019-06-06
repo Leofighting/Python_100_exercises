@@ -1,0 +1,24 @@
+# 编写函数，计算字符串匹配的准确率
+
+def match_rate(origin, user_input):
+
+    if not(isinstance(origin, str) and isinstance(user_input, str)):
+        print("The two parameters must be strings.")
+        return
+
+    if len(origin) < len(user_input):
+        print("Sorry. I suppose the second parameter string is shorter.")
+        return
+    right = 0
+
+    for origin_char, user_char in zip(origin, user_input):
+        if origin_char == user_char:
+            right += 1
+    return right / len(origin)
+
+
+origin1 = "Shandong Institute of Business and Technology"
+print(origin1)
+user_input1 = input("请输入： ")
+rate = match_rate(origin1, user_input1)
+print(f"你输入的准确率是： {rate}")
