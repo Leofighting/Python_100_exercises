@@ -1,0 +1,62 @@
+# 编写函数，对整数进行因数分解
+
+from random import randint
+from math import sqrt
+
+
+def factoring(n):
+    """对大数进行因数分解"""
+    if not isinstance(n, int):
+        print("You must give me an integer")
+        return
+
+    # 开始分解，把所有因数都添加到 result 列表中
+    result = []
+
+    for p in primes:
+        while n != 1:
+            if n % p == 0:
+                n = n / p
+                result.append(p)
+            else:
+                break
+        else:
+            result = map(str, result)
+            result = "*".join(result)
+            return result
+    # 考虑参数本身就是素数的情况
+    if not result:
+        return n
+
+
+test_data = [randint(10, 100) for i in range(3)]
+
+# 限定随机数种的最大数
+max_data = max(test_data)
+# 小于 max_data 的所有素数
+primes = [p for p in range(2,max_data)
+          if 0 not in [p % d for d in range(2, int(sqrt(p)) + 1)]]
+
+for data in test_data:
+    r = factoring(data)
+    print(data, "=", r)
+    # 调试分解结果是否正确
+    print(data == eval(r))
+
+
+# 个人笔记
+# map() 会根据提供的函数对指定序列做映射。
+# 第一个参数 function 以参数序列中的每一个元素调用 function 函数，返回包含每次 function 函数返回值的新列表。
+# 语法
+# map() 函数语法：
+# map(function, iterable, ...)
+# 
+# Python join() 方法用于将序列中的元素以指定的字符连接生成一个新的字符串。
+# 语法
+# join()方法语法：
+# str.join(sequence)
+# 
+# eval() 函数用来执行一个字符串表达式，并返回表达式的值。
+# 语法
+# 以下是 eval() 方法的语法:
+# eval(expression[, globals[, locals]])
