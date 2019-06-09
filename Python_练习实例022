@@ -1,0 +1,59 @@
+# 编写函数计算任意位数的黑洞数
+# 黑洞数：由这个数字没位数字组成的最大数减去每位数字组成的最小数，仍然得到这个数自身
+# 例如：495--> 954-459=495
+
+
+def main(n):
+    """参数n表示数字的位数，例如n=3时，返回495"""
+
+    # 待测试数范围的起点和结束值
+    start_num = 10 ** (n - 1) + 2
+    end_num = start_num * 10 - 20
+
+    # 以此测试每个数
+    for i in range(start_num, end_num):
+        i = str(i)
+
+        # 由这几个数字组成的最大的数
+        biggest_num = "".join(sorted(i, reverse=True))
+        biggest_num = int(biggest_num)
+
+        # 由这几个数字组成的最小的数
+        smallest_num = "".join(sorted(i))
+        smallest_num = int(smallest_num)
+
+        if biggest_num - smallest_num == int(i):
+            print(f"{n}位黑洞数是 {i}")
+
+
+for n in range(2, 9):
+    main(n)
+
+
+# 个人笔记：
+
+# 注意：我这里设置n的范围是2-8，运行时间需要5分钟以上
+
+# join()函数
+# 语法：  'sep'.join(seq)
+# 参数说明
+# sep：分隔符。可以为空
+# seq：要连接的元素序列、字符串、元组、字典
+# 上面的语法即：以sep作为分隔符，将seq所有的元素合并成一个新的字符串
+# 返回值：返回一个以分隔符sep连接各个元素后生成的字符串
+# 
+# 
+# sorted() 函数
+# 对所有可迭代的对象进行排序操作。
+# sort 与 sorted 区别：
+# sort 是应用在 list 上的方法，sorted 可以对所有可迭代的对象进行排序操作。
+# list 的 sort 方法返回的是对已经存在的列表进行操作，无返回值，而内建函数 sorted 方法返回的是一个新的 list，而不是在原来的基础上进行的操作。
+# 
+# sorted 语法：
+# sorted(iterable[, cmp[, key[, reverse]]])
+# 
+# 参数说明：
+# iterable -- 可迭代对象。
+# cmp -- 比较的函数，这个具有两个参数，参数的值都是从可迭代对象中取出，此函数必须遵守的规则为，大于则返回1，小于则返回-1，等于则返回0。
+# key -- 主要是用来进行比较的元素，只有一个参数，具体的函数的参数就是取自于可迭代对象中，指定可迭代对象中的一个元素来进行排序。
+# reverse -- 排序规则，reverse = True 降序 ， reverse = False 升序（默认）。
