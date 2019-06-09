@@ -1,0 +1,41 @@
+# 编写函数，将YYYY-MM-DD 的日期形式转换为YYYYQ 的形式，其中Q 表示季度
+
+
+def convert(year_month_day):
+    if not isinstance(year_month_day, str):
+        return "Type Error.Must be str"
+    if year_month_day.count("-") != 2:
+        return "Parameter Error.Must contains 2 '-'"
+    data = year_month_day.split("-")
+    if (len(data[0]) != 4) or (len(data[1]) not in (1, 2)) or (len(data[2]) not in (1, 2)):
+        return "Parameter Error. Must be YYYY-MM-DD "
+    try:
+        year, month, day = map(int, data)
+        quarter = [[3, 4, 5], [6, 7, 8], [9, 10, 11], [12, 1, 2]]
+        for q, m in enumerate(quarter):
+            if month in m:
+                return str(year) + str(q + 1)
+    except:
+        return "Parameter Error. Must be YYYY-MM-DD, and all be digits"
+
+
+print(convert("2016-09-27"))
+
+
+# 个人笔记
+# Python split()
+# 通过指定分隔符对字符串进行切片，如果参数 num 有指定值，则分隔 num+1 个子字符串
+# split() 方法语法：
+# str.split(str="", num=string.count(str)).
+# 参数
+# str -- 分隔符，默认为所有的空字符，包括空格、换行(\n)、制表符(\t)等。
+# num -- 分割次数。默认为 -1, 即分隔所有。
+
+# enumerate() 函数
+# 用于将一个可遍历的数据对象(如列表、元组或字符串)组合为一个索引序列，同时列出数据和数据下标，一般用在 for 循环当中。
+# Python 2.3. 以上版本可用，2.6 添加 start 参数。
+# 以下是 enumerate() 方法的语法:
+# enumerate(sequence, [start=0])
+# 参数
+# sequence -- 一个序列、迭代器或其他支持迭代对象。
+# start -- 下标起始位置。
