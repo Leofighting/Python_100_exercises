@@ -1,0 +1,21 @@
+# 计算形式如 a+aa+aaa+aaaa+...+aaa...aaa 的表达式的值
+# 其中 a 为小于 10 的自然数
+
+
+def demo(v, n):
+    assert 0 < v < 10, "v must between 1 and 9"
+    assert type(n) == int, "n must be integer"
+    result, t = 0, 0
+    for i in range(n):
+        t = t * 10 + v
+        result += t
+    return result
+
+
+print(demo(3, 4))
+
+
+# 个人笔记：
+# Python assert断言函数及用法
+# 断言语句和 if 分支有点类似，它用于对一个 bool 表达式进行断言
+# 如果该 bool 表达式为 True，该程序可以继续向下执行；否则程序会引发 AssertionError 错误。
