@@ -1,0 +1,46 @@
+# 使用正则表达式提取字符串中的电话号码
+
+import re
+
+tel_number = """Suppose my Phone No. is 0535:1234567,yours is 010:12345678,his is 025:87654321"""
+
+pattern = re.compile(r'(\d{3,4}):(\d{7,8})')
+
+index = 0
+
+while True:
+    match_result = pattern.search(tel_number, index)
+    if not match_result:
+        break
+    print("-" * 30)
+    print("Success:")
+    for i in range(3):
+        print("Searched content:", match_result.group(i), "Start from:", match_result.start(i),
+              "End at:", match_result.end(i), "Its span is:", match_result.span(i))
+    index = match_result.end(2)
+
+
+# 个人笔记：
+# 特别注意下面这行代码的熟悉格式：
+# pattern = re.compile(r'(\d{3,4}):(\d{7,8})')
+# 其中{}里面，","后面不要有空格
+# 否则，会因为格式错误，导致match_result 为 None
+
+
+# 运行结果：
+# ------------------------------
+# Success:
+# Searched content: 0535:1234567 Start from: 24 End at: 36 Its span is: (24, 36)
+# Searched content: 0535 Start from: 24 End at: 28 Its span is: (24, 28)
+# Searched content: 1234567 Start from: 29 End at: 36 Its span is: (29, 36)
+# ------------------------------
+# Success:
+# Searched content: 010:12345678 Start from: 46 End at: 58 Its span is: (46, 58)
+# Searched content: 010 Start from: 46 End at: 49 Its span is: (46, 49)
+# Searched content: 12345678 Start from: 50 End at: 58 Its span is: (50, 58)
+# ------------------------------
+# Success:
+# Searched content: 025:87654321 Start from: 66 End at: 78 Its span is: (66, 78)
+# Searched content: 025 Start from: 66 End at: 69 Its span is: (66, 69)
+# Searched content: 87654321 Start from: 70 End at: 78 Its span is: (70, 78)
+
